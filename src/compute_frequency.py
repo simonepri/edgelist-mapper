@@ -80,18 +80,20 @@ def main():
       utils.sort_file(
         ent_freq_path,
         delimiter='\t',
-        columns=[1],
+        column=1,
         has_header=False,
-        reverse=True
+        reverse=True,
+        numerical=True
       )
 
       print('Sorting the frequency file for relations')
       utils.sort_file(
         rel_freq_path,
         delimiter='\t',
-        columns=[1],
+        column=1,
         has_header=False,
-        reverse=True
+        reverse=True,
+        numerical=True
       )
 
 if __name__ == '__main__':

@@ -1,34 +1,27 @@
 from typing import Dict, IO, Optional
 
 import os
-
-from csvsort import csvsort
-from file_read_backwards import FileReadBackwards
+import shlex
 
 def sort_file(
   input_filename,
-  columns,
+  column,
   output_filename=None,
   has_header=False,
   delimiter='\t',
-  reverse=False
+  reverse=False,
+  numerical=False,
 ):
-  csvsort(
-    input_filename=input_filename,
-    columns=columns,
-    output_filename=output_filename,
-    has_header=has_header,
-    delimiter=delimiter
-  )
+  flags = ''
   if reverse:
-    if has_header:
-      raise ValueError('Not supported')
-    with open(input_filename + '.tmp', 'w+') as f:
-      with FileReadBackwards(input_filename) as frb:
-        for line in frb:
-          f.write(line + '\n')
-    os.remove(input_filename)
-    os.rename(input_filename + '.tmp', input_filename)
+    flags += '-r '
+  if numerical:
+    flags += '-n '
+  sortcmd = 'sort %s-k %d -t %s -o %s{,}' % (flags, column + 1, shlex.quote(delimiter), input_filename)
+  if has_header:
+    raise ValueError('Not Implemented')
+  else:
+    os.system(sortcmd)
 
 def readlines_reverse(filename : str):
   with open(filename, 'rt') as qfile:

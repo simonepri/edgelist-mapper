@@ -16,12 +16,12 @@ def main():
     help='Path of the edgelist file'
   )
   parser.add_argument(
-    '-rm', '--ent-map',
+    '-em', '--ent-map',
     default='entities_map.tsv',
     help='Output path of the mapping for entities'
   )
   parser.add_argument(
-    '-em', '--rel-map',
+    '-rm', '--rel-map',
     default='relations_map.tsv',
     help='Output path of the mapping for relations'
   )
