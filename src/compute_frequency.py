@@ -1,16 +1,19 @@
+#!/usr/bin/env python3
 import argparse
 import tempfile
 import os
 import sys
+from typing import *  # pylint: disable=wildcard-import,unused-wildcard-import
 
 import shelve
 
 import utils
 
 
-def main():
+def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Compute the frequency of each entity and relation of a multi-relational graph"
+        description="Compute the frequency of each entity and relation"
+        + " of a multi-relational graph"
     )
     parser.add_argument("edgelist", help="Path of the edgelist file")
     parser.add_argument(
@@ -32,15 +35,25 @@ def main():
         default=False,
         help="If you pass this the first line of the edgelist will be ignored",
     )
-    args = parser.parse_args()
+    return parser.parse_args()
 
-    edgelist_path = os.path.realpath(args.edgelist)
-    ent_freq_path = os.path.realpath(args.ent_freq)
-    rel_freq_path = os.path.realpath(args.rel_freq)
 
-    if not os.path.isfile(edgelist_path):
+def normalize_args(args: argparse.Namespace) -> None:
+    args.edgelist = os.path.realpath(args.edgelist)
+    args.ent_freq = os.path.realpath(args.ent_freq)
+    args.rel_freq = os.path.realpath(args.rel_freq)
+
+
+def validate_args(args: argparse.Namespace) -> None:
+    if not os.path.isfile(args.edgelist):
         print("The edgelist file does not exists")
         sys.exit(1)
+
+
+def main(args: argparse.Namespace) -> None:
+    edgelist_path = args.edgelist
+    ent_freq_path = args.ent_freq
+    rel_freq_path = args.rel_freq
 
     with tempfile.TemporaryDirectory() as tmp:
         ent_dict_path = os.path.join(tmp, "ent")
@@ -51,9 +64,9 @@ def main():
         ) as rel_dict:
 
             print("Computing the frequencies for entities and relations")
-            with open(args.edgelist, "r") as el:
+            with open(edgelist_path, "r") as el_handle:
                 utils.frequencies_from_edgelist(
-                    edgelist=el,
+                    edgelist=el_handle,
                     delimiter="\t",
                     lhs_store=ent_dict,
                     rhs_store=ent_dict,
@@ -65,18 +78,16 @@ def main():
                 )
 
             print("Writing the frequency file for entities")
-            if not os.path.exists(os.path.dirname(ent_freq_path)):
-                os.makedirs(os.path.dirname(ent_freq_path))
-            with open(ent_freq_path, "w+") as f:
+            os.makedirs(os.path.dirname(ent_freq_path), exist_ok=True)
+            with open(ent_freq_path, "w+") as ef_handle:
                 for ent in ent_dict:
-                    f.write("%s\t%d\n" % (ent, ent_dict[ent]))
+                    ef_handle.write("%s\t%d\n" % (ent, ent_dict[ent]))
 
             print("Writing the frequency file for relations")
-            if not os.path.exists(os.path.dirname(rel_freq_path)):
-                os.makedirs(os.path.dirname(rel_freq_path))
-            with open(rel_freq_path, "w+") as f:
+            os.makedirs(os.path.dirname(rel_freq_path), exist_ok=True)
+            with open(rel_freq_path, "w+") as rf_handle:
                 for rel in rel_dict:
-                    f.write("%s\t%d\n" % (rel, rel_dict[rel]))
+                    rf_handle.write("%s\t%d\n" % (rel, rel_dict[rel]))
 
             print("Sorting the frequency file for entities")
             utils.sort_file(
@@ -100,4 +111,11 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        ARGS = parse_args()
+
+        normalize_args(ARGS)
+        validate_args(ARGS)
+        main(ARGS)
+    except (KeyboardInterrupt, SystemExit):
+        print("\nAborted!")

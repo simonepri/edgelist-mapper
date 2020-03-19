@@ -1,15 +1,14 @@
+#!/usr/bin/env python3
 import argparse
 import os
 import sys
-
-import shelve
-
-import utils
+from typing import *  # pylint: disable=wildcard-import,unused-wildcard-import
 
 
-def main():
+def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Build a mapping from each named entity and relation of a multi-relational graph to an int"
+        description="Builds a mapping from each named entity and relation"
+        + " of a multi-relational graph to an int"
     )
     parser.add_argument(
         "-ef",
@@ -35,38 +34,54 @@ def main():
         default="entities_map.tsv",
         help="Output path of the mapping for relations",
     )
-    args = parser.parse_args()
+    return parser.parse_args()
 
-    ent_freq_path = os.path.realpath(args.ent_freq)
-    rel_freq_path = os.path.realpath(args.rel_freq)
-    ent_map_path = os.path.realpath(args.ent_map)
-    rel_map_path = os.path.realpath(args.rel_map)
 
-    if not os.path.isfile(ent_freq_path):
+def normalize_args(args: argparse.Namespace) -> None:
+    args.ent_freq = os.path.realpath(args.ent_freq)
+    args.rel_freq = os.path.realpath(args.rel_freq)
+    args.ent_map = os.path.realpath(args.ent_map)
+    args.rel_map = os.path.realpath(args.rel_map)
+
+
+def validate_args(args: argparse.Namespace) -> None:
+    if not os.path.isfile(args.ent_freq):
         print("The entities frequency file does not exists")
         sys.exit(1)
-    if not os.path.isfile(rel_freq_path):
+    if not os.path.isfile(args.rel_freq):
         print("The relations frequency file does not exists")
         sys.exit(1)
 
+
+def main(args: argparse.Namespace) -> None:
+    ent_freq_path = args.ent_freq
+    rel_freq_path = args.rel_freq
+    ent_map_path = args.ent_map
+    rel_map_path = args.rel_map
+
     print("Writing the mapping file for entities")
-    if not os.path.exists(os.path.dirname(ent_map_path)):
-        os.makedirs(os.path.dirname(ent_map_path))
-    with open(ent_map_path, "w+") as em:
-        with open(ent_freq_path, "r") as ef:
-            for idx, line in enumerate(ef):
+    os.makedirs(os.path.dirname(ent_map_path), exist_ok=True)
+    with open(ent_map_path, "w+") as em_handle:
+        with open(ent_freq_path, "r") as ef_handle:
+            for idx, line in enumerate(ef_handle):
                 parts = line.rstrip("\n").split("\t", 1)
-                em.write(str(idx) + "\t" + parts[0] + "\n")
+                em_handle.write(str(idx) + "\t" + parts[0] + "\n")
 
     print("Writing the mapping file for relations")
-    if not os.path.exists(os.path.dirname(rel_map_path)):
-        os.makedirs(os.path.dirname(rel_map_path))
-    with open(rel_map_path, "w+") as rm:
-        with open(rel_freq_path, "r") as rf:
-            for idx, line in enumerate(rf):
+    os.makedirs(os.path.dirname(rel_map_path), exist_ok=True)
+    with open(rel_map_path, "w+") as rm_handle:
+        with open(rel_freq_path, "r") as rf_handle:
+            for idx, line in enumerate(rf_handle):
                 parts = line.rstrip("\n").split("\t", 1)
-                rm.write(str(idx) + "\t" + parts[0] + "\n")
+                rm_handle.write(str(idx) + "\t" + parts[0] + "\n")
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        ARGS = parse_args()
+
+        normalize_args(ARGS)
+        validate_args(ARGS)
+        main(ARGS)
+    except (KeyboardInterrupt, SystemExit):
+        print("\nAborted!")

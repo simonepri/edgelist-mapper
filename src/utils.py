@@ -1,18 +1,20 @@
-from typing import Dict, IO, Optional
+#!/usr/bin/env python3
+from typing import *  # pylint: disable=wildcard-import,unused-wildcard-import
+from typing import IO
 
 import os
 import shlex
 
 
 def sort_file(
-    input_filename,
-    column,
-    output_filename=None,
-    has_header=False,
-    delimiter="\t",
-    reverse=False,
-    numerical=False,
-):
+    input_filename: str,
+    column: int,
+    output_filename: Optional[str] = None,
+    has_header: bool = False,
+    delimiter: str = "\t",
+    reverse: bool = False,
+    numerical: bool = False,
+) -> None:
     flags = ""
     if reverse:
         flags += "-r "
@@ -26,11 +28,10 @@ def sort_file(
     )
     if has_header:
         raise ValueError("Not Implemented")
-    else:
-        os.system(sortcmd)
+    os.system(sortcmd)
 
 
-def readlines_reverse(filename: str):
+def readlines_reverse(filename: str) -> Generator[str, None, None]:
     with open(filename, "rt") as qfile:
         qfile.seek(0, os.SEEK_END)
         position = qfile.tell()
@@ -49,15 +50,15 @@ def readlines_reverse(filename: str):
 
 def frequencies_from_edgelist(
     edgelist: IO,
-    lhs_store: Optional[Dict] = None,
-    rhs_store: Optional[Dict] = None,
-    rel_store: Optional[Dict] = None,
+    lhs_store: Optional[MutableMapping[str, int]] = None,
+    rhs_store: Optional[MutableMapping[str, int]] = None,
+    rel_store: Optional[MutableMapping[str, int]] = None,
     lhs_col: Optional[int] = None,
     rhs_col: Optional[int] = None,
     rel_col: Optional[int] = None,
     delimiter: Optional[str] = "\t",
-    has_header: Optional[bool] = False,
-):
+    has_header: bool = False,
+) -> None:
     if lhs_col is None and rhs_col is None and rel_col is None:
         raise ValueError(
             "At least one of lhs_col, rhs_col, rel_col must be specified"
@@ -82,10 +83,10 @@ def frequencies_from_edgelist(
             continue
         parts = edge.rstrip("\n").split(delimiter)
 
-        if lhs_col is not None:
+        if lhs_col is not None and lhs_store is not None:
             if lhs_col < 0 or lhs_col >= len(parts):
                 raise ValueError(
-                    "lhs_col must be in range (%, %) but % provided"
+                    "lhs_col must be in range (%d, %d) but %d provided"
                     % (0, len(parts), lhs_col)
                 )
             lhs_key = parts[lhs_col]
@@ -93,10 +94,10 @@ def frequencies_from_edgelist(
                 lhs_store[lhs_key] + 1 if lhs_key in lhs_store else 1
             )
 
-        if rhs_col is not None:
+        if rhs_col is not None and rhs_store is not None:
             if rhs_col < 0 or rhs_col >= len(parts):
                 raise ValueError(
-                    "rhs_col must be in range (%, %) but % provided"
+                    "rhs_col must be in range (%d, %d) but %d provided"
                     % (0, len(parts), rhs_col)
                 )
             rhs_key = parts[rhs_col]
@@ -104,11 +105,11 @@ def frequencies_from_edgelist(
                 rhs_store[rhs_key] + 1 if rhs_key in rhs_store else 1
             )
 
-        if rel_col is not None:
-            if rhs_col < 0 or rhs_col >= len(parts):
+        if rel_col is not None and rel_store is not None:
+            if rel_col < 0 or rel_col >= len(parts):
                 raise ValueError(
-                    "rhs_col must be in range (%, %) but % provided"
-                    % (0, len(parts), rhs_col)
+                    "rel_col must be in range (%d, %d) but %d provided"
+                    % (0, len(parts), rel_col)
                 )
             rel_key = parts[rel_col]
             rel_store[rel_key] = (

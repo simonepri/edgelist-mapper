@@ -1,14 +1,14 @@
+#!/usr/bin/env python3
 import argparse
 import tempfile
 import os
 import sys
+from typing import *  # pylint: disable=wildcard-import,unused-wildcard-import
 
 import shelve
 
-import utils
 
-
-def main():
+def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Map the entities and the relations of an edgelist"
     )
@@ -31,22 +31,33 @@ def main():
         default="mapped_esdgelist.tsv",
         help="Output path of the mapped edgelist",
     )
-    args = parser.parse_args()
+    return parser.parse_args()
 
-    edgelist_path = os.path.realpath(args.edgelist)
-    ent_map_path = os.path.realpath(args.ent_map)
-    rel_map_path = os.path.realpath(args.rel_map)
-    el_map_path = os.path.realpath(args.mapped_edgelist)
 
-    if not os.path.isfile(edgelist_path):
+def normalize_args(args: argparse.Namespace) -> None:
+    args.edgelist = os.path.realpath(args.edgelist)
+    args.ent_map = os.path.realpath(args.ent_map)
+    args.rel_map = os.path.realpath(args.rel_map)
+    args.mapped_edgelist = os.path.realpath(args.mapped_edgelist)
+
+
+def validate_args(args: argparse.Namespace) -> None:
+    if not os.path.isfile(args.edgelist):
         print("The edgelist file does not exists")
         sys.exit(1)
-    if not os.path.isfile(ent_map_path):
+    if not os.path.isfile(args.ent_map):
         print("The entities mapping file does not exists")
         sys.exit(1)
-    if not os.path.isfile(rel_map_path):
+    if not os.path.isfile(args.rel_map):
         print("The relations mapping file does not exists")
         sys.exit(1)
+
+
+def main(args: argparse.Namespace) -> None:
+    edgelist_path = args.edgelist
+    ent_map_path = args.ent_map
+    rel_map_path = args.rel_map
+    el_map_path = args.mapped_edgelist
 
     with tempfile.TemporaryDirectory() as tmp:
         ent_dict_path = os.path.join(tmp, "ent")
@@ -56,33 +67,40 @@ def main():
             rel_dict_path
         ) as ent_dict:
             print("Processing entities mapping")
-            with open(ent_map_path, "r") as em:
-                for line in em:
+            with open(ent_map_path, "r") as em_handle:
+                for line in em_handle:
                     parts = line.rstrip("\n").split("\t")
                     ent_dict[parts[1]] = parts[0]
 
             print("Processing relations mapping")
-            with open(rel_map_path, "r") as rm:
-                for line in rm:
+            with open(rel_map_path, "r") as rm_handle:
+                for line in rm_handle:
                     parts = line.rstrip("\n").split("\t")
                     rel_dict[parts[1]] = parts[0]
 
             print("Writing the mapped edgelist")
-            if not os.path.exists(os.path.dirname(el_map_path)):
-                os.makedirs(os.path.dirname(el_map_path))
-            with open(el_map_path, "w+") as mel:
-                with open(edgelist_path, "r") as el:
-                    for line in el:
-                        parts = line.rstrip("\n").split("\t")
-                        mel.write(
-                            ent_dict[parts[0]]
-                            + "\t"
-                            + rel_dict[parts[1]]
-                            + "\t"
-                            + ent_dict[parts[2]]
-                            + "\n"
-                        )
+            os.makedirs(os.path.dirname(el_map_path), exist_ok=True)
+            with open(el_map_path, "w+") as mel_handle, open(
+                edgelist_path, "r"
+            ) as el_handle:
+                for line in el_handle:
+                    parts = line.rstrip("\n").split("\t")
+                    mel_handle.write(
+                        ent_dict[parts[0]]
+                        + "\t"
+                        + rel_dict[parts[1]]
+                        + "\t"
+                        + ent_dict[parts[2]]
+                        + "\n"
+                    )
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        ARGS = parse_args()
+
+        normalize_args(ARGS)
+        validate_args(ARGS)
+        main(ARGS)
+    except (KeyboardInterrupt, SystemExit):
+        print("\nAborted!")
