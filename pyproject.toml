@@ -5,10 +5,19 @@ description = "Convert an edgelist file into a more compact format"
 authors = ["Simone Primarosa <simonepri@outlook.com>"]
 license = "MIT"
 
+[tool.taskipy.tasks]
+lint = "python -m pylint src --max-line-length 80 -v --output-format colorized --disable duplicate-code,bad-continuation,too-many-locals,too-many-arguments"
+types = "python -m mypy src"
+format= "python -m black src --line-length 80"
+
 [tool.poetry.dependencies]
 python = "^3.7"
 
 [tool.poetry.dev-dependencies]
+black = "*"
+pylint = "*"
+taskipy = "*"
+mypy = "*"
 
 [build-system]
 requires = ["poetry>=0.12"]
