@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "edgelist-converter"
+version = "0.1.0"
+description = "Convert an edgelist file into a more compact format"
+authors = ["Simone Primarosa <simonepri@outlook.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
