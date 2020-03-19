@@ -9,6 +9,7 @@ license = "MIT"
 lint = "python -m pylint src --max-line-length 80 -v --output-format colorized --disable duplicate-code,bad-continuation,too-many-locals,too-many-arguments"
 types = "python -m mypy src"
 format = "python -m black src --line-length 80"
+bin = "env PYTHONPATH=src python"
 
 [tool.poetry.dependencies]
 python = "^3.7"
