@@ -16,14 +16,17 @@ def sort_file(
     numerical: bool = False,
 ) -> None:
     flags = ""
+    if output_filename is None:
+        output_filename = input_filename
     if reverse:
         flags += "-r "
     if numerical:
         flags += "-n "
-    sortcmd = "sort %s-k %d -t %s -o %s{,}" % (
+    sortcmd = "sort %s-k %d -t %s -o %s %s" % (
         flags,
         column + 1,
         shlex.quote(delimiter),
+        output_filename,
         input_filename,
     )
     if has_header:
