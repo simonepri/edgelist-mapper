@@ -7,7 +7,7 @@ from typing import *  # pylint: disable=wildcard-import,unused-wildcard-import
 
 import shelve
 
-import utils
+from .. import utils
 
 
 def parse_args() -> argparse.Namespace:

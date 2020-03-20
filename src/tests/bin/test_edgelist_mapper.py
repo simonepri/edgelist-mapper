@@ -3,9 +3,9 @@ import difflib
 import os
 import tempfile
 
-from bin.edgelist_mapper import main as edgelist_mapper_main
+from main.bin.run import main as run_main
 
-FIXTURE_PATH = os.path.realpath("tests/.fixtures")
+FIXTURE_PATH = os.path.realpath("src/tests/.fixtures")
 
 
 def get_file_diffs(file1, file2):
@@ -20,7 +20,7 @@ def test_main():
         args_edgelist_mapper = argparse.Namespace(
             edgelist=os.path.join(cities_fixture, "edgelist.tsv"), output=tmp,
         )
-        edgelist_mapper_main(args_edgelist_mapper)
+        run_main(args_edgelist_mapper)
 
         diffs = get_file_diffs(
             os.path.join(cities_fixture, "entities_mapping.tsv"),

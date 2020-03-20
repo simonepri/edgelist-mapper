@@ -71,7 +71,7 @@ The CLI takes the following positional arguments:
 
 Example usage:
 ```bash
-env PYTHONPATH=src python src/edgelist_mapper.py \
+env PYTHONPATH=src python src/main/bin/run.py \
     edgelist.tsv \
     .
 ```
