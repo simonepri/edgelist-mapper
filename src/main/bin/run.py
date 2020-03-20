@@ -4,9 +4,9 @@ import os
 import sys
 from typing import *  # pylint: disable=wildcard-import,unused-wildcard-import
 
-from ..bin.compute_frequency import main as main_compute_frequency
-from ..bin.generate_mapping import main as main_generate_mapping
-from ..bin.map_edgelist import main as main_map_edgelist
+from .compute_frequency import main as main_compute_frequency
+from .generate_mapping import main as main_generate_mapping
+from .map_edgelist import main as main_map_edgelist
 
 
 def parse_args() -> argparse.Namespace:
