@@ -6,11 +6,11 @@ authors = ["Simone Primarosa <simonepri@outlook.com>"]
 license = "MIT"
 
 [tool.taskipy.tasks]
-python = "env PYTHONPATH=src python"
-lint = "poetry run task python -m pylint src --max-line-length 80 -v --output-format colorized --disable duplicate-code,bad-continuation,too-many-locals,too-many-arguments,no-name-in-module"
+python = "env PYTHONPATH=src python -B"
+lint = "poetry run task python -m pylint src --max-line-length 80 -v --output-format colorized --disable duplicate-code,bad-continuation,too-many-locals,too-many-arguments"
 types = "poetry run task python -m mypy src"
 format = "poetry run task python -m black src --line-length 80"
-test = "poetry run task python -m pytest src/tests --showlocals --cov=src/main --cov-report=term-missing"
+test = "poetry run task python -m pytest src/tests --showlocals --cov=src/main --cov-report=term-missing:skip-covered"
 
 [tool.poetry.dependencies]
 python = "^3.6"
