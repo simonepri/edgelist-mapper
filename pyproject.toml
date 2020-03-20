@@ -13,7 +13,7 @@ test = "env PYTHONPATH=src python -m pytest tests"
 bin = "env PYTHONPATH=src python"
 
 [tool.poetry.dependencies]
-python = "^3.5"
+python = "^3.6"
 
 [tool.poetry.dev-dependencies]
 black = "^19.10b0"
