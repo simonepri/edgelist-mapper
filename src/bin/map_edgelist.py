@@ -28,7 +28,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "-me",
         "--mapped-edgelist",
-        default="mapped_esdgelist.tsv",
+        default="mapped_edgelist.tsv",
         help="Output path of the mapped edgelist",
     )
     return parser.parse_args()
