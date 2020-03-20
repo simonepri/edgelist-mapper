@@ -33,23 +33,23 @@ def main(args: argparse.Namespace) -> None:
     args_compute_frequency = argparse.Namespace(
         edgelist=args.edgelist,
         ent_freq=os.path.join(args.output, "entities_frequency.tsv"),
-        rel_freq=os.path.join(args.output, "realations_frequency.tsv"),
+        rel_freq=os.path.join(args.output, "relations_frequency.tsv"),
         no_header=False,
     )
     main_compute_frequency(args_compute_frequency)
 
     args_generate_mapping = argparse.Namespace(
         ent_freq=os.path.join(args.output, "entities_frequency.tsv"),
-        rel_freq=os.path.join(args.output, "realations_frequency.tsv"),
+        rel_freq=os.path.join(args.output, "relations_frequency.tsv"),
         ent_map=os.path.join(args.output, "entities_mapping.tsv"),
-        rel_map=os.path.join(args.output, "realations_mapping.tsv"),
+        rel_map=os.path.join(args.output, "relations_mapping.tsv"),
     )
     main_generate_mapping(args_generate_mapping)
 
     args_map_edgelist = argparse.Namespace(
         edgelist=args.edgelist,
         ent_map=os.path.join(args.output, "entities_mapping.tsv"),
-        rel_map=os.path.join(args.output, "realations_mapping.tsv"),
+        rel_map=os.path.join(args.output, "relations_mapping.tsv"),
         mapped_edgelist=os.path.join(args.output, "mapped_edgelist.tsv"),
     )
     main_map_edgelist(args_map_edgelist)
