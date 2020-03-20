@@ -93,7 +93,7 @@ The CLI takes the following positional arguments:
 
 Example usage:
 ```bash
-env PYTHONPATH=src python src/main/bin/run.py \
+env PYTHONPATH=src python3 -m main.bin.run \
     edgelist.tsv \
     .
 ```
