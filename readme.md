@@ -2,6 +2,28 @@
   <b>edgelist-mapper</b>
 </h1>
 <p align="center">
+  <!-- Build -->
+  <a href="https://github.com/simonepri/edgelist-mapper/actions?query=workflow%3Abuild">
+    <img src="https://github.com/simonepri/edgelist-mapper/workflows/build/badge.svg?branch=master" alt="Build status" />
+  </a>
+  <br />
+  <!-- Code style -->
+  <a href="https://github.com/ambv/black">
+    <img src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="Code style" />
+  </a>
+  <!-- Linter -->
+  <a href="https://github.com/PyCQA/pylint">
+    <img src="https://img.shields.io/badge/linter-pylint-ce963f.svg" alt="Linter" />
+  </a>
+  <!-- Test runner -->
+  <a href="https://github.com/pytest-dev/pytest">
+    <img src="https://img.shields.io/badge/test%20runner-pytest-449bd6.svg" alt="Test runner" />
+  </a>
+  <!-- Build tool -->
+  <a href="https://github.com/python-poetry/poetry">
+    <img src="https://img.shields.io/badge/build%20system-poetry-4e5dc8.svg" alt="Build tool" />
+  </a>
+  <br />
   <!-- License -->
   <a href="https://github.com/simonepri/edgelist-mapper/tree/master/license">
     <img src="https://img.shields.io/github/license/simonepri/edgelist-mapper.svg" alt="Project license" />
