@@ -1,0 +1,38 @@
+name: Python package
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.5, 3.6, 3.7, 3.8]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install -qq --upgrade pip
+          pip install -qq poetry
+          poetry install
+      - name: Check if files are correctly formatted with black
+        run: |
+          poetry run task format --check --diff
+      - name: Lint with pylint
+        run: |
+          poetry run task lint --disable=E --exit-zero
+          poetry run task lint -E
+      - name: Perform static type checking with mypy
+        run: |
+          poetry run task types
+      - name: Test with pytest
+        run: |
+          poetry run task test
