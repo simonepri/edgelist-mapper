@@ -23,25 +23,61 @@ def test_main():
         run_main(args_edgelist_mapper)
 
         diffs = get_file_diffs(
-            os.path.join(cities_fixture, "entities_mapping.tsv"),
-            os.path.join(tmp, "entities_mapping.tsv"),
+            os.path.join(cities_fixture, "relations_frequency.tsv"),
+            os.path.join(tmp, "relations_frequency.tsv"),
         )
+        if len(diffs) > 0:
+            print("Diffs in the relations_frequency.tsv files")
         for line in diffs:
-            print(line)
+            print(line, end="")
+        assert len(diffs) == 0
+
+        diffs = get_file_diffs(
+            os.path.join(cities_fixture, "entities_frequency.tsv"),
+            os.path.join(tmp, "entities_frequency.tsv"),
+        )
+        if len(diffs) > 0:
+            print("Diffs in the entities_frequency.tsv files")
+        for line in diffs:
+            print(line, end="")
         assert len(diffs) == 0
 
         diffs = get_file_diffs(
             os.path.join(cities_fixture, "entities_mapping.tsv"),
             os.path.join(tmp, "entities_mapping.tsv"),
         )
+        if len(diffs) > 0:
+            print("Diffs in the entities_mapping.tsv files")
         for line in diffs:
-            print(line)
+            print(line, end="")
         assert len(diffs) == 0
 
         diffs = get_file_diffs(
             os.path.join(cities_fixture, "relations_mapping.tsv"),
             os.path.join(tmp, "relations_mapping.tsv"),
         )
+        if len(diffs) > 0:
+            print("Diffs in the relations_mapping.tsv files")
         for line in diffs:
-            print(line)
+            print(line, end="")
+        assert len(diffs) == 0
+
+        diffs = get_file_diffs(
+            os.path.join(cities_fixture, "entities_mapping.tsv"),
+            os.path.join(tmp, "entities_mapping.tsv"),
+        )
+        if len(diffs) > 0:
+            print("Diffs in the entities_mapping.tsv files")
+        for line in diffs:
+            print(line, end="")
+        assert len(diffs) == 0
+
+        diffs = get_file_diffs(
+            os.path.join(cities_fixture, "mapped_edgelist.tsv"),
+            os.path.join(tmp, "mapped_edgelist.tsv"),
+        )
+        if len(diffs) > 0:
+            print("Diffs in the mapped_edgelist.tsv files")
+        for line in diffs:
+            print(line, end="")
         assert len(diffs) == 0
