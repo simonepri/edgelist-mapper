@@ -93,6 +93,7 @@ The CLI takes the following positional arguments:
 
 Example usage:
 ```bash
+pip install git+https://github.com/simonepri/edgelist-mapper
 python -m edgelist_mapper.bin.run \
     edgelist.tsv \
     .

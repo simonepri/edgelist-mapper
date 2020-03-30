@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "edgelist-converter"
+name = "edgelist_mapper"
 version = "0.1.0"
 description = "Convert an edgelist file into a more compact format"
 authors = ["Simone Primarosa <simonepri@outlook.com>"]
