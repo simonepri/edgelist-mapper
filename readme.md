@@ -6,6 +6,9 @@
   <a href="https://github.com/simonepri/edgelist-mapper/actions?query=workflow%3Abuild">
     <img src="https://github.com/simonepri/edgelist-mapper/workflows/build/badge.svg?branch=master" alt="Build status" />
   </a>
+  <a href="https://pypi.org/manage/project/edgelist-mapper">
+    <img src="https://img.shields.io/pypi/v/edgelist-mapper.svg" alt="Build status" />
+  </a>
   <br />
   <!-- Code style -->
   <a href="https://github.com/ambv/black">
@@ -93,7 +96,7 @@ The CLI takes the following positional arguments:
 
 Example usage:
 ```bash
-pip install git+https://github.com/simonepri/edgelist-mapper
+pip install edgelist-mapper
 python -m edgelist_mapper.bin.run \
     edgelist.tsv \
     .
