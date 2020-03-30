@@ -6,7 +6,7 @@
   <a href="https://github.com/simonepri/edgelist-mapper/actions?query=workflow%3Abuild">
     <img src="https://github.com/simonepri/edgelist-mapper/workflows/build/badge.svg?branch=master" alt="Build status" />
   </a>
-  <a href="https://pypi.org/manage/project/edgelist-mapper">
+  <a href="https://pypi.org/project/edgelist-mapper">
     <img src="https://img.shields.io/pypi/v/edgelist-mapper.svg" alt="Build status" />
   </a>
   <br />
