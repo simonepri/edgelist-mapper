@@ -6,11 +6,10 @@ authors = ["Simone Primarosa <simonepri@outlook.com>"]
 license = "MIT"
 
 [tool.taskipy.tasks]
-python = "env PYTHONPATH=src python -B"
-lint = "poetry run task python -m pylint src --max-line-length 80 -v --output-format colorized --disable duplicate-code,bad-continuation,too-many-locals,too-many-arguments"
-types = "poetry run task python -m mypy src"
-format = "poetry run task python -m black src --line-length 80"
-test = "poetry run task python -m pytest src/tests --showlocals --cov=src/main --cov-report=term-missing:skip-covered"
+lint = "python -m pylint edgelist_mapper tests --max-line-length 80 -v --output-format colorized --disable duplicate-code,bad-continuation,too-many-locals,too-many-arguments"
+types = "python -m mypy edgelist_mapper tests"
+format = "python -m black edgelist_mapper tests --line-length 80"
+test = "python -m pytest tests --showlocals --cov=edgelist_mapper --cov-report=term-missing:skip-covered"
 
 [tool.poetry.dependencies]
 python = "^3.6"

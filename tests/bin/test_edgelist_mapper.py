@@ -3,9 +3,9 @@ import difflib
 import os
 import tempfile
 
-from main.bin.run import main as run_main
+from edgelist_mapper.bin.run import main as run_main
 
-FIXTURE_PATH = os.path.realpath("src/tests/.fixtures")
+FIXTURE_PATH = os.path.realpath("tests/.fixtures")
 
 
 def get_file_diffs(file1, file2):
