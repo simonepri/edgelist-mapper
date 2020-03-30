@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "edgelist_mapper"
-version = "0.1.1"
+name = "edgelist-mapper"
+version = "0.1.2"
 description = "Maps nodes and edges of a multi-relational graph to integer"
 authors = ["Simone Primarosa <simonepri@outlook.com>"]
 license = "MIT"
@@ -11,7 +11,7 @@ keywords = ["knowledge", "graph", "mapper", "edgelist", "converter"]
 
 packages = [
   {include = "edgelist_mapper", from = "."},
-  {include = "tests", format = "sdist"},
+  {include = "tests", from = ".", format = "sdist"},
 ]
 
 [tool.taskipy.tasks]
