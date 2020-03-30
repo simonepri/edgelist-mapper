@@ -1,9 +1,18 @@
 [tool.poetry]
 name = "edgelist_mapper"
-version = "0.1.0"
-description = "Convert an edgelist file into a more compact format"
+version = "0.1.1"
+description = "Maps nodes and edges of a multi-relational graph to integer"
 authors = ["Simone Primarosa <simonepri@outlook.com>"]
 license = "MIT"
+homepage = "https://github.com/simonepri/edgelist-mapper#readme"
+repository = "https://github.com/simonepri/edgelist-mapper"
+readme = "readme.md"
+keywords = ["knowledge", "graph", "mapper", "edgelist", "converter"]
+
+packages = [
+  {include = "edgelist_mapper", from = "."},
+  {include = "tests", format = "sdist"},
+]
 
 [tool.taskipy.tasks]
 lint = "python -m pylint edgelist_mapper tests --max-line-length 80 -v --output-format colorized --disable duplicate-code,bad-continuation,too-many-locals,too-many-arguments"
