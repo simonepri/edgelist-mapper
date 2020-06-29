@@ -63,22 +63,14 @@ def frequencies_from_edgelist(
     has_header: bool = False,
 ) -> None:
     if lhs_col is None and rhs_col is None and rel_col is None:
-        raise ValueError(
-            "At least one of lhs_col, rhs_col, rel_col must be specified"
-        )
+        raise ValueError("At least one of lhs_col, rhs_col, rel_col must be specified")
 
     if lhs_col is not None and lhs_store is None:
-        raise ValueError(
-            "If lhs_col is specified, lhs_store must be provided as well"
-        )
+        raise ValueError("If lhs_col is specified, lhs_store must be provided as well")
     if rhs_col is not None and rhs_store is None:
-        raise ValueError(
-            "If rhs_col is specified, rhs_store must be provided as well"
-        )
+        raise ValueError("If rhs_col is specified, rhs_store must be provided as well")
     if rel_col is not None and rel_store is None:
-        raise ValueError(
-            "If rel_col is specified, rel_store must be provided as well"
-        )
+        raise ValueError("If rel_col is specified, rel_store must be provided as well")
 
     for edge in edgelist:
         if has_header is True:
@@ -93,9 +85,7 @@ def frequencies_from_edgelist(
                     % (0, len(parts), lhs_col)
                 )
             lhs_key = parts[lhs_col]
-            lhs_store[lhs_key] = (
-                lhs_store[lhs_key] + 1 if lhs_key in lhs_store else 1
-            )
+            lhs_store[lhs_key] = lhs_store[lhs_key] + 1 if lhs_key in lhs_store else 1
 
         if rhs_col is not None and rhs_store is not None:
             if rhs_col < 0 or rhs_col >= len(parts):
@@ -104,9 +94,7 @@ def frequencies_from_edgelist(
                     % (0, len(parts), rhs_col)
                 )
             rhs_key = parts[rhs_col]
-            rhs_store[rhs_key] = (
-                rhs_store[rhs_key] + 1 if rhs_key in rhs_store else 1
-            )
+            rhs_store[rhs_key] = rhs_store[rhs_key] + 1 if rhs_key in rhs_store else 1
 
         if rel_col is not None and rel_store is not None:
             if rel_col < 0 or rel_col >= len(parts):
@@ -115,6 +103,4 @@ def frequencies_from_edgelist(
                     % (0, len(parts), rel_col)
                 )
             rel_key = parts[rel_col]
-            rel_store[rel_key] = (
-                rel_store[rel_key] + 1 if rel_key in rel_store else 1
-            )
+            rel_store[rel_key] = rel_store[rel_key] + 1 if rel_key in rel_store else 1
