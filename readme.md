@@ -141,6 +141,7 @@ This project is licensed under the MIT License - see the [license][license] file
 
 <!-- Links -->
 
+[start]: https://github.com/simonepri/edgelist-mapper#start-of-content
 [license]: https://github.com/simonepri/edgelist-mapper/tree/master/license
 [contributors]: https://github.com/simonepri/edgelist-mapper/contributors
 
