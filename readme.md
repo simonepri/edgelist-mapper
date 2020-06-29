@@ -6,8 +6,13 @@
   <a href="https://github.com/simonepri/edgelist-mapper/actions?query=workflow%3Abuild">
     <img src="https://github.com/simonepri/edgelist-mapper/workflows/build/badge.svg?branch=master" alt="Build status" />
   </a>
+  <!-- PyPi -->
   <a href="https://pypi.org/project/edgelist-mapper">
-    <img src="https://img.shields.io/pypi/v/edgelist-mapper.svg" alt="Build status" />
+    <img src="https://img.shields.io/pypi/v/edgelist-mapper.svg" alt="PyPi version" />
+  </a>
+  <!-- Downloads -->
+  <a href="https://pepy.tech/project/edgelist-mapper">
+    <img src="https://pepy.tech/badge/edgelist-mapper" alt="Total downloads" />
   </a>
   <br />
   <!-- Code style -->
@@ -18,9 +23,17 @@
   <a href="https://github.com/PyCQA/pylint">
     <img src="https://img.shields.io/badge/linter-pylint-ce963f.svg" alt="Linter" />
   </a>
+  <!-- Types checker -->
+  <a href="https://github.com/PyCQA/pylint">
+    <img src="https://img.shields.io/badge/types%20checker-mypy-296db2.svg" alt="Types checker" />
+  </a>
   <!-- Test runner -->
   <a href="https://github.com/pytest-dev/pytest">
     <img src="https://img.shields.io/badge/test%20runner-pytest-449bd6.svg" alt="Test runner" />
+  </a>
+  <!-- Task runner -->
+  <a href="https://github.com/illBeRoy/taskipy">
+    <img src="https://img.shields.io/badge/task%20runner-taskipy-abe63e.svg" alt="Task runner" />
   </a>
   <!-- Build tool -->
   <a href="https://github.com/python-poetry/poetry">
