@@ -15,9 +15,9 @@ packages = [
 ]
 
 [tool.taskipy.tasks]
-lint = "python -m pylint edgelist_mapper tests --max-line-length 80 -v --output-format colorized --disable duplicate-code,bad-continuation,too-many-locals,too-many-arguments"
+lint = "python -m pylint edgelist_mapper tests -v --output-format colorized"
 types = "python -m mypy edgelist_mapper tests"
-format = "python -m black edgelist_mapper tests --line-length 80"
+format = "python -m black edgelist_mapper tests"
 test = "python -m pytest tests --showlocals --cov=edgelist_mapper --cov-report=term-missing:skip-covered"
 
 [tool.poetry.dependencies]
@@ -30,6 +30,20 @@ pylint = "^2.4.4"
 mypy = "~0.770"
 pytest = "^5.4.1"
 pytest-cov = "^2.8.1"
+
+[tool.pylint.format]
+max-line-length = 88
+
+[tool.pylint.messages_control]
+disable = [
+  'bad-continuation',
+  'duplicate-code',
+  'too-many-locals',
+  'too-many-arguments',
+]
+
+[tool.black]
+line-length = 88
 
 [build-system]
 requires = ["poetry >=1,<2"]
