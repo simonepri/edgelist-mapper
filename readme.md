@@ -57,6 +57,8 @@ The mapping assigned is such that entities and relations that appear more freque
 
 This tool is particularly useful to pre-process some of the publicly available knowledge graph datasets that are often used for the machine learning task of [relation prediction][repo:NLP-progress->relation_prediction.md].
 
+Do you believe that this is useful? Has it saved you time? Or maybe you simply like it?
+If so, support this work with a Star ⭐️.
 
 ## Input format
 
